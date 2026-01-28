@@ -1,16 +1,18 @@
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Habit
+from .permissions import IsOwner
 from .serializers import HabitSerializer
 from django.db import models
 
 
 class HabitViewSet(viewsets.ModelViewSet):
     serializer_class = HabitSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    filter_backends = [DjangoFilterBackend, 'rest_framework.filters.OrderingFilter']
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ['is_public', 'owner']
     ordering_fields = ['time', 'action']
 
@@ -30,3 +32,5 @@ class HabitViewSet(viewsets.ModelViewSet):
         queryset = Habit.objects.filter(is_public=True)
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
+
