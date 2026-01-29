@@ -6,17 +6,24 @@ from .validators import validate_max_two_minutes, validate_linked_habit_is_pleas
 
 
 class Habit(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='habits')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="habits")
     place = models.CharField(max_length=255)
     time = models.TimeField()
     action = models.CharField(max_length=255)
     is_pleasure = models.BooleanField(default=False)
-    linked_habit = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='linked_to', validators=[validate_linked_habit_is_pleasure])
+    linked_habit = models.ForeignKey(
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="linked_to",
+        validators=[validate_linked_habit_is_pleasure],
+    )
     PERIOD_CHOICES = [
-        (1, 'Раз в неделю'),
-        (2, 'Два раза в неделю'),
-        (3, 'Три раза в неделю'),
-        (7, 'Ежедневно'),
+        (1, "Раз в неделю"),
+        (2, "Два раза в неделю"),
+        (3, "Три раза в неделю"),
+        (7, "Ежедневно"),
     ]
     periodicity = models.IntegerField(choices=PERIOD_CHOICES, default=1, validators=[validate_periodicity])
     reward = models.CharField(max_length=255, blank=True, null=True)
@@ -27,9 +34,7 @@ class Habit(models.Model):
         super().clean()
         # Проверка, что связанная привычка — приятная
         if self.linked_habit and not self.linked_habit.is_pleasure:
-            raise ValidationError(
-                "В связанной привычке должен быть признак 'приятной привычки'."
-            )
+            raise ValidationError("В связанной привычке должен быть признак 'приятной привычки'.")
         # Проверка, что у приятной привычки нет вознаграждения и связанной привычки
         if self.is_pleasure:
             if self.reward:

@@ -1,22 +1,23 @@
 from django.core.exceptions import ValidationError
 
 PERIOD_CHOICES = [
-    (1, 'Раз в неделю'),
-    (2, 'Два раза в неделю'),
-    (3, 'Три раза в неделю'),
-    (7, 'Ежедневно'),
+    (1, "Раз в неделю"),
+    (2, "Два раза в неделю"),
+    (3, "Три раза в неделю"),
+    (7, "Ежедневно"),
 ]
 
 
 def validate_max_two_minutes(value):
     if value > 120:
-        raise ValidationError('Время не должно превышать 2 минут (120 секунд).')
+        raise ValidationError("Время не должно превышать 2 минут (120 секунд).")
 
 
 def validate_linked_habit_is_pleasure(value):
     from .models import Habit
+
     if value:
-        print(f'value={value}')
+        print(f"value={value}")
         try:
             habit = Habit.objects.get(pk=value)
         except Habit.DoesNotExist:
