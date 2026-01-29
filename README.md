@@ -14,7 +14,7 @@ pip install -r requirements.txt
 
 Как запустить проект:
 
-1.Клонируйте репозиторий и перейдите в папку проекта education
+1.Клонируйте репозиторий и перейдите в папку проекта habit_tracker
 
 git clone https://github.com/InnaVeselkova/Habit-tracker.git
 
