@@ -22,7 +22,15 @@ git clone https://github.com/InnaVeselkova/Habit-tracker.git
 
 cd habit_tracker
 
-2.Создайте файл .env и заполните его переменными
+2.Создайте файл .env и заполните его переменными 
+
+3.Для запуска проекта используйте команду
+
+python manage.py runserver
+
+Сервер запустится по адресу: http://127.0.0.1:8000/
+
+
 
 
 
