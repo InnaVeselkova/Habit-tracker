@@ -14,7 +14,7 @@ pip install -r requirements.txt
 
 Как запустить проект:
 
-1.Клонируйте репозиторий и перейдите в папку проекта education
+1.Клонируйте репозиторий и перейдите в папку проекта habit_tracker
 
 git clone https://github.com/InnaVeselkova/Habit-tracker.git
 
@@ -22,7 +22,54 @@ git clone https://github.com/InnaVeselkova/Habit-tracker.git
 
 cd habit_tracker
 
+2.Создайте файл .env и заполните его переменными 
+
+3.Для запуска проекта используйте команду
+
+python manage.py runserver
+
+Сервер запустится по адресу: http://127.0.0.1:8000/
+
+## Инструкции по запуску проекта через Docker и Docker Compose
+Предварительные требования: 
+
+Установленный Docker и Docker Compose
+
+Как запустить проект:
+
+1.Клонируйте репозиторий и перейдите в папку проекта education
+
+git clone https://github.com/InnaVeselkova/Habit-tracker.git
+
+cd habit_tracker
+
 2.Создайте файл .env и заполните его переменными
+
+3.Запустите все сервисы командой
+
+docker-compose up -d
+
+## Проверка работоспособности сервисов
+
+Backend API
+Откройте в браузере: http://localhost:8000/
+
+База данных
+Она доступна внутри Docker-сети по имени db или по адресу localhost:5432.
+
+Проверка 
+
+docker exec -it <название_контейнера_db> psql -U <имя_пользователя> -d <название_базы>
+
+Redis
+Работает, по адресу localhost:6379.
+
+Для остановки и удаления всех контейнеров выполните:
+
+docker-compose down
+
+
+
 
 
 
